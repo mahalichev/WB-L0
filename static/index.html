@@ -1,0 +1,14 @@
+<html>
+<head>
+    <title>Order</title>
+</head>
+<body>
+    <form action="/static/orders" method="get">
+        <label for="orderID">Search order:</label>
+        <input type="text" id="orderID" name="id" required>
+        <button type="submit">Search</button>
+    </form>
+    <span style="white-space: pre-line; white-space:pre;">{{.JSONData}}</span>
+    
+    </body>
+    </html>

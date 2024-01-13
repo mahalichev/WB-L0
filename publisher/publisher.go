@@ -13,7 +13,6 @@ import (
 	"time"
 
 	"github.com/mahalichev/WB-L0/models"
-	"github.com/nats-io/nats.go"
 	"github.com/nats-io/stan.go"
 )
 
@@ -85,7 +84,7 @@ func generateOrder() models.Order {
 		DeliveryService:   pseudoRandomString(),
 		Shardkey:          pseudoRandomString(),
 		SMID:              rand.Intn(1<<31 - 1),
-		DateCreated:       pseudoRandomString(),
+		DateCreated:       time.Now().Format("2006-01-02T15:04:05Z"),
 		OOFShard:          pseudoRandomString(),
 	}
 	itemsLen := rand.Intn(3) + 1
@@ -99,7 +98,7 @@ func generateOrder() models.Order {
 }
 
 func main() {
-	sc, err := stan.Connect(clusterID, clientID, stan.NatsURL(nats.DefaultURL))
+	sc, err := stan.Connect(clusterID, clientID)
 	if err != nil {
 		log.Fatal(err)
 	}
