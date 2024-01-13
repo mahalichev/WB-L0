@@ -48,7 +48,7 @@ func RunService() {
 	}
 	defer sc.Close()
 
-	sub, err := sc.Subscribe(os.Getenv("STAN_SUBJECT"), func(msg *stan.Msg) {
+	_, err = sc.Subscribe(os.Getenv("STAN_SUBJECT"), func(msg *stan.Msg) {
 		var order models.Order
 		app.InfoLog.Print("recieved message")
 		if err := json.Unmarshal(msg.Data, &order); err != nil {
@@ -67,7 +67,6 @@ func RunService() {
 		app.ErrLog.Print(err)
 		return
 	}
-	defer sub.Unsubscribe()
 
 	server := &http.Server{
 		Addr:     fmt.Sprintf("%s:%s", os.Getenv("SERVICE_ADDRESS"), os.Getenv("SERVICE_PORT")),
