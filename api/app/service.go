@@ -78,7 +78,7 @@ func RunService() {
 			app.ErrLog.Printf("HTTP server error: %s", err.Error())
 		}
 	}()
-	app.InfoLog.Print("Service started successfully")
+	app.InfoLog.Print("service started successfully")
 	UntilInterrupt()
 	app.InfoLog.Printf("exiting...")
 

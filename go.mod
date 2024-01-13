@@ -5,7 +5,6 @@ go 1.21.6
 require (
 	github.com/jackc/pgx/v5 v5.5.1
 	github.com/joho/godotenv v1.5.1
-	github.com/lib/pq v1.10.9
 	github.com/nats-io/stan.go v0.10.4
 	github.com/tsenart/vegeta/v12 v12.11.1
 	gorm.io/datatypes v1.2.0

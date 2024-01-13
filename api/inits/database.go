@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	_ "github.com/lib/pq"
 	"github.com/mahalichev/WB-L0/api/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
