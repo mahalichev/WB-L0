@@ -17,7 +17,7 @@ func GetOrderHTML(app *config.App) func(http.ResponseWriter, *http.Request) {
 		order_uid := r.URL.Query().Get("id")
 		order, ok := app.Cache[order_uid]
 		if !ok {
-			app.ErrLog.Printf("Order with order_uid %s not found", order_uid)
+			app.ErrLog.Printf("order with order_uid %s not found", order_uid)
 			http.NotFound(w, r)
 			return
 		}

@@ -49,12 +49,18 @@ func RunService() {
 	defer sc.Close()
 
 	sub, err := sc.Subscribe(os.Getenv("STAN_SUBJECT"), func(msg *stan.Msg) {
-		// TODO (add data to sql and to cache)
-		log.Printf("Received a message: %s\n", string(msg.Data))
-		order := models.Order{}
-		_ = json.Unmarshal(msg.Data, &order)
-		app.Cache[order.OrderUID] = order
+		var order models.Order
+		if err := json.Unmarshal(msg.Data, &order); err != nil {
+			app.ErrLog.Printf("can't unmarshal json data: %s", err.Error())
+			return
+		}
+		if err := app.Dao.InsertOrder(order); err != nil {
+			app.ErrLog.Printf("can't insert order into db: %s", err.Error())
+			return
+		}
+		app.AddToCache(order)
 	})
+
 	if err != nil {
 		app.ErrLog.Print(err)
 		return
@@ -70,19 +76,18 @@ func RunService() {
 	go func() {
 		if err := server.ListenAndServe(); !errors.Is(err, http.ErrServerClosed) {
 			app.ErrLog.Printf("HTTP server error: %s", err.Error())
-			return
 		}
 	}()
 	app.InfoLog.Print("Service started successfully")
 	UntilInterrupt()
-	app.InfoLog.Printf("Exiting...")
+	app.InfoLog.Printf("exiting...")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	if err := server.Shutdown(ctx); err != nil {
-		app.ErrLog.Printf("An error occurred while shutting down the server: %s", err.Error())
+		app.ErrLog.Printf("an error occurred while shutting down the server: %s", err.Error())
 	}
-	app.InfoLog.Print("Service shutted down")
+	app.InfoLog.Print("service shutted down")
 }
 
 func UntilInterrupt() {

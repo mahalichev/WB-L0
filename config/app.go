@@ -28,17 +28,18 @@ func New() *App {
 	}
 	db, err := inits.GetDatabase()
 	if err != nil {
-		app.ErrLog.Fatalf("Can't connect to db: %s", err.Error())
+		app.ErrLog.Fatalf("can't connect to db: %s", err.Error())
 	}
 	app.Dao = dao.New(db)
 
 	orders, err := app.Dao.SelectAll()
 	if err != nil {
-		app.ErrLog.Fatalf("Can't recover cache: %s", err.Error())
+		app.ErrLog.Fatalf("can't recover cache: %s", err.Error())
 	}
 
 	for _, order := range orders {
 		app.AddToCache(order)
 	}
+	app.InfoLog.Printf("recovered %d orders", len(app.Cache))
 	return app
 }
