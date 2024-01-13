@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"github.com/jackc/pgx/v5/pgconn"
-	"github.com/mahalichev/WB-L0/models"
+	"github.com/mahalichev/WB-L0/api/models"
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
 )

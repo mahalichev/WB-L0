@@ -5,14 +5,14 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/mahalichev/WB-L0/config"
+	"github.com/mahalichev/WB-L0/api/config"
 )
 
 func GetRoot(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "")
 }
 
-func GetOrderHTML(app *config.App) func(http.ResponseWriter, *http.Request) {
+func GetOrderHTML(app *config.AppConfig) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		order_uid := r.URL.Query().Get("id")
 		order, ok := app.Cache[order_uid]
@@ -31,7 +31,7 @@ func GetOrderHTML(app *config.App) func(http.ResponseWriter, *http.Request) {
 	}
 }
 
-func GetOrderJSON(app *config.App) func(http.ResponseWriter, *http.Request) {
+func GetOrderJSON(app *config.AppConfig) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		order_uid := r.URL.Query().Get("id")
 		order, ok := app.Cache[order_uid]

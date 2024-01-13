@@ -11,13 +11,13 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/mahalichev/WB-L0/config"
-	"github.com/mahalichev/WB-L0/handlers"
-	"github.com/mahalichev/WB-L0/models"
+	"github.com/mahalichev/WB-L0/api/config"
+	"github.com/mahalichev/WB-L0/api/handlers"
+	"github.com/mahalichev/WB-L0/api/models"
 	"github.com/nats-io/stan.go"
 )
 
-func newMux(app *config.App) *http.ServeMux {
+func newMux(app *config.AppConfig) *http.ServeMux {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {

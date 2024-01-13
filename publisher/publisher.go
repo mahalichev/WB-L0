@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/mahalichev/WB-L0/app"
-	"github.com/mahalichev/WB-L0/inits"
+	"github.com/mahalichev/WB-L0/api/app"
+	"github.com/mahalichev/WB-L0/api/inits"
 	"github.com/nats-io/stan.go"
 )
 

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/mahalichev/WB-L0/app"
-	"github.com/mahalichev/WB-L0/inits"
+	"github.com/mahalichev/WB-L0/api/app"
+	"github.com/mahalichev/WB-L0/api/inits"
 )
 
 func init() {

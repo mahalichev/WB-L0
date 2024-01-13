@@ -4,24 +4,24 @@ import (
 	"log"
 	"os"
 
-	"github.com/mahalichev/WB-L0/dao"
-	"github.com/mahalichev/WB-L0/inits"
-	"github.com/mahalichev/WB-L0/models"
+	"github.com/mahalichev/WB-L0/api/dao"
+	"github.com/mahalichev/WB-L0/api/inits"
+	"github.com/mahalichev/WB-L0/api/models"
 )
 
-type App struct {
+type AppConfig struct {
 	InfoLog *log.Logger
 	ErrLog  *log.Logger
 	Dao     *dao.DAO
 	Cache   map[string]models.Order
 }
 
-func (app *App) AddToCache(order models.Order) {
+func (app *AppConfig) AddToCache(order models.Order) {
 	app.Cache[order.OrderUID] = order
 }
 
-func New() *App {
-	app := &App{
+func New() *AppConfig {
+	app := &AppConfig{
 		InfoLog: log.New(os.Stdout, "INFO ", log.Ldate|log.Ltime),
 		ErrLog:  log.New(os.Stderr, "ERROR ", log.Ldate|log.Ltime|log.Lshortfile),
 		Cache:   make(map[string]models.Order),

@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/mahalichev/WB-L0/models"
+	"github.com/mahalichev/WB-L0/api/models"
 )
 
 func pseudoRandomString() string {
