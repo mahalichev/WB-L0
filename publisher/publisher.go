@@ -38,8 +38,7 @@ func sendMessages(sc stan.Conn, subject string, ticker *time.Ticker) {
 			return
 		}
 		<-ticker.C
-		err = sc.Publish(subject, message)
-		if err != nil {
+		if err := sc.Publish(subject, message); err != nil {
 			log.Printf("error publishing message: %s", err.Error())
 		} else {
 			log.Printf("sent order with UID: %s", order.OrderUID)

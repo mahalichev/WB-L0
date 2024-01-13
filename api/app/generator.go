@@ -59,7 +59,7 @@ func generateDelivery() models.Delivery {
 		City:    pseudoRandomString(),
 		Address: pseudoRandomString(),
 		Region:  pseudoRandomString(),
-		Email:   pseudoRandomString(),
+		Email:   pseudoRandomString() + "@gmail.com",
 	}
 }
 

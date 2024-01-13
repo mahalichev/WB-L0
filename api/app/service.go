@@ -50,6 +50,7 @@ func RunService() {
 
 	sub, err := sc.Subscribe(os.Getenv("STAN_SUBJECT"), func(msg *stan.Msg) {
 		var order models.Order
+		app.InfoLog.Print("recieved message")
 		if err := json.Unmarshal(msg.Data, &order); err != nil {
 			app.ErrLog.Printf("can't unmarshal json data: %s", err.Error())
 			return
@@ -59,7 +60,8 @@ func RunService() {
 			return
 		}
 		app.AddToCache(order)
-	})
+		app.InfoLog.Printf("order with order_uid %s cached successfully", order.OrderUID)
+	}, stan.DurableName(os.Getenv("STAN_DURABLENAME")), stan.DeliverAllAvailable())
 
 	if err != nil {
 		app.ErrLog.Print(err)

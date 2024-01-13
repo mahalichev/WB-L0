@@ -8,7 +8,7 @@ type Order struct {
 	Payment           Payment  `json:"payment" validate:"required"`
 	Items             []Item   `json:"items" validate:"required"`
 	Locale            string   `json:"locale" validate:"required"`
-	InternalSignature string   `json:"internal_signature" validate:"required"`
+	InternalSignature string   `json:"internal_signature"`
 	CustomerID        string   `json:"customer_id" validate:"required"`
 	DeliveryService   string   `json:"delivery_service" validate:"required"`
 	Shardkey          string   `json:"shardkey" validate:"required"`
@@ -24,20 +24,20 @@ type Delivery struct {
 	City    string `json:"city" validate:"required"`
 	Address string `json:"address" validate:"required"`
 	Region  string `json:"region" validate:"required"`
-	Email   string `json:"email" validate:"required"`
+	Email   string `json:"email" validate:"email,required"`
 }
 
 type Payment struct {
 	Transaction  string `json:"transaction" validate:"required"`
-	RequestID    string `json:"request_id" validate:"required"`
+	RequestID    string `json:"request_id"`
 	Currency     string `json:"currency" validate:"required"`
 	Provider     string `json:"provider" validate:"required"`
 	Amount       int    `json:"amount" validate:"required"`
 	PaymentDT    int    `json:"payment_dt" validate:"required"`
 	Bank         string `json:"bank" validate:"required"`
-	DeliveryCost int    `json:"delivery_cost" validate:"required"`
-	GoodsTotal   int    `json:"goods_total" validate:"required"`
-	CustomFEE    int    `json:"custom_fee" validate:"required"`
+	DeliveryCost int    `json:"delivery_cost"`
+	GoodsTotal   int    `json:"goods_total"`
+	CustomFEE    int    `json:"custom_fee"`
 }
 
 type Item struct {
@@ -46,8 +46,8 @@ type Item struct {
 	Price       int    `json:"price" validate:"required"`
 	RID         string `json:"rid" validate:"required"`
 	Name        string `json:"name" validate:"required"`
-	Sale        int    `json:"sale" validate:"required"`
-	Size        string `json:"size" validate:"required"`
+	Sale        int    `json:"sale"`
+	Size        string `json:"size"`
 	TotalPrice  int    `json:"total_price" validate:"required"`
 	NMID        int    `json:"nm_id" validate:"required"`
 	Brand       string `json:"brand" validate:"required"`

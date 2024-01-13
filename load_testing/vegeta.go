@@ -2,20 +2,26 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"time"
 
+	"github.com/mahalichev/WB-L0/api/inits"
 	vegeta "github.com/tsenart/vegeta/v12/lib"
 )
+
+func init() {
+	inits.LoadEnvironment()
+}
 
 func main() {
 	attacker := vegeta.NewAttacker()
 	targeter := vegeta.NewStaticTargeter(vegeta.Target{
 		Method: "GET",
-		URL:    "http://localhost:3000/orders?id=0e47903348d8f6b31f25da44d763f799",
+		URL:    fmt.Sprintf("http://%s:%s/orders?id=%s", os.Getenv("SERVICE_ADDRESS"), os.Getenv("SERVICE_PORT"), os.Getenv("VEGETA_ORDERUID")),
 	})
 
 	var metrics vegeta.Metrics
-	for res := range attacker.Attack(targeter, vegeta.Rate{Freq: 1000, Per: time.Second}, 3*time.Second, "Orders GET test") {
+	for res := range attacker.Attack(targeter, vegeta.Rate{Freq: 1000, Per: time.Second}, 3*time.Second, "GET order test") {
 		metrics.Add(res)
 	}
 	metrics.Close()
