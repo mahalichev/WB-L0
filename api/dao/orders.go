@@ -68,7 +68,7 @@ func (dao *DAO) SelectAll() ([]models.Order, error) {
 			return orders, fmt.Errorf("can't unmarshal \"OrderData\" field of %s: %s", dbOrder.OrderUID, err.Error())
 		}
 		if err := dao.validate.Struct(order); err != nil {
-			return orders, fmt.Errorf("object with order_uid %s must contain all values: %s", dbOrder.OrderUID, err.Error())
+			return orders, fmt.Errorf("object with order_uid %s is not valid: %s", dbOrder.OrderUID, err.Error())
 		}
 		orders = append(orders, order)
 	}
