@@ -61,7 +61,7 @@ func RunService() {
 		}
 		app.AddToCache(order)
 		app.InfoLog.Printf("order with order_uid %s cached successfully", order.OrderUID)
-	}, stan.DurableName(os.Getenv("STAN_DURABLENAME")))
+	}, stan.DurableName(os.Getenv("STAN_DURABLENAME")), stan.DeliverAllAvailable())
 
 	if err != nil {
 		app.ErrLog.Print(err)
