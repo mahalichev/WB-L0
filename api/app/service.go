@@ -61,7 +61,7 @@ func RunService() {
 		}
 		app.AddToCache(order)
 		app.InfoLog.Printf("order with order_uid %s cached successfully", order.OrderUID)
-	}, stan.DurableName(os.Getenv("STAN_DURABLENAME")), stan.DeliverAllAvailable())
+	}, stan.DurableName(os.Getenv("STAN_DURABLENAME")))
 
 	if err != nil {
 		app.ErrLog.Print(err)
@@ -93,6 +93,7 @@ func RunService() {
 
 func UntilInterrupt() {
 	c := make(chan os.Signal, 1)
+	defer close(c)
 	signal.Notify(c, os.Interrupt)
 	<-c
 }
